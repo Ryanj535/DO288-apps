@@ -12,8 +12,8 @@ pipeline {
 
     environment {
         //TODO: Customize these variables for your environment
-        DEV_PROJECT = "youruser-movies-dev"
-        STAGE_PROJECT = "youruser-movies-stage"
+        DEV_PROJECT = "rjoseph-lm-movies-dev"
+        STAGE_PROJECT = "rjoseph-lm-movies-stage"
         APP_GIT_URL = "https://github.com/Ryanj535/DO288-apps"
         NEXUS_SERVER = "http://nexus-common.apps.na45.prod.nextcle.com/repository/java"
 
@@ -84,7 +84,7 @@ pipeline {
                 }
 		sh '''
 			oc new-app --as-deployment-config ${APP_NAME}:latest -n ${DEV_PROJECT}
-			oc expose svc/${APP_NAME} -n ${DEV_PROJECt}
+			oc expose svc/${APP_NAME} -n ${DEV_PROJECT}
 		   '''	
             }
         }
@@ -110,7 +110,7 @@ pipeline {
                 }
                 script {
                     openshift.withCluster() {
-		    openshift.tag("${DEV_PROJECt}/${APP_NAME}:latest", "${STAGE_PROJECt}/${APP_NAME}:stage")
+		    openshift.tag("${DEV_PROJECT}/${APP_NAME}:latest", "${STAGE_PROJECT}/${APP_NAME}:stage")
                     }
                 }
             }
